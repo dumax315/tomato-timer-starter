@@ -5,7 +5,7 @@ const timerElement = document.getElementById("time-left")
 
 let timeLeft = 25*60;
 function updateTimerDisplay(minutes, seconds) {
-    timerElement.innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
+    timerElement.innerText = `${minutes.padStart(2, '0')}:${seconds.padStart(2, '0')}`
 }
 
 
@@ -17,11 +17,22 @@ console.log(paddedNumber)
 
 setInterval(() => {
     timeLeft--;
-    seconds = timeLeft%60;
+    let seconds = timeLeft%60;
+    let minutes = Math.floor(timeLeft/60);
     if(timeLeft < 0){
         seconds = seconds*-1
+        minutes+=1;
+        if(minutes == 0){
+            minutes = "-";
+        }else{
+            mintues = minutes.toString();
+
+        }
+    }else{
+        minutes = minutes.toString();
     }
-    updateTimerDisplay(Math.floor(timeLeft/60), seconds)
+    
+    updateTimerDisplay(minutes, seconds.toString())
 }, 1000); // 1000 milliseconds = 5 seconds
 
 document.getElementById("break-btn").addEventListener("click", () => {
